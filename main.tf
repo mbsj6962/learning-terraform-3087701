@@ -43,7 +43,7 @@ resource "aws_security_group_rule" "blog_http_in" {
   protocol    = "tcp"
   cidr_blocks = ["0.0.0.0/0"]
 
-  aws_security_group.id = aws_security_group.blog.id
+  aws_security_group.id = {aws_security_group.blog.id}
 }
 
 resource "aws_securiy_group_rule" "blog_https_in" {
