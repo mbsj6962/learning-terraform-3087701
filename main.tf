@@ -55,8 +55,15 @@ module "alb" {
   vpc_id  = module.blog_vpc.vpc_id
   security_groups = [module.blog_sg.security_group_id]
 
-  target_groups = [
-    {
+listeners = {
+    ex-http-https-redirect = {
+      port     = 80
+      protocol = "HTTP"
+    }
+  }
+
+  target_groups = {
+    ex-instance = {
       name_prefix      = "blog-"
       protocol         = "HTTP"
       port             = 80
@@ -68,15 +75,7 @@ module "alb" {
         }
       }
     }
-  ]
-
-  http_tcp_listeners = [
-    {
-      port               = 80
-      protocol           = "HTTP"
-      target_group_index = 0
-    }
-  ]
+  }
   
   tags = {
     Environment = "dev"
